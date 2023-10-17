@@ -2,10 +2,13 @@ package Steps;
 
 import BaseTest.DriverBase;
 import Pages.StcLandingPage;
+import Pojos.DataBinder;
+import Pojos.WebsiteData;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.messages.types.DataTable;
+
+import java.io.File;
 
 public class StcWebsiteSteps extends DriverBase {
     StcLandingPage stcLandingPage;
@@ -23,7 +26,26 @@ public class StcWebsiteSteps extends DriverBase {
 
         }
     }
+    @Given("Initializing environment1 and open website on {string}browser")
+    public void OpenWebsite1(String browsername) throws Exception {
 
+        try {
+            //stcLandingPage = new StcLandingPage(DriverBase.getdriverPerBrowser(browsername));
+
+
+           // stcLandingPage = new StcLandingPage(DriverBase.getdriverPerBrowser(browsername));
+           // DriverBase.OpenWebsite(browsername, obj.getUrl());
+            DataBinder data=new DataBinder();
+            data.DesrialzeMapper();
+            WebsiteData obj=new WebsiteData();
+            obj.getCountry1();
+            obj.getUrl();
+            obj.getNoOfPackageTypes();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+
+        }
+    }
     @When("StcTv website is loaded correctly")
     public void StcTvwebsite_loadedcorrectly() throws Exception {
         try {

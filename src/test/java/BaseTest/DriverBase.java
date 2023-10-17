@@ -1,13 +1,16 @@
 package BaseTest;
 import java.io.FileReader;
+
+import io.cucumber.java.Scenario;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 
 public class DriverBase {
@@ -21,12 +24,10 @@ public class DriverBase {
             switch (browser) {
                 case "chrome":
                     ChromeOptions chromeOptions = new ChromeOptions();
-                    WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver(chromeOptions);
                     break;
                 case "firefox":
                     FirefoxOptions firefoxOptions = new FirefoxOptions();
-                    WebDriverManager.firefoxdriver().setup();
                     driver = new FirefoxDriver(firefoxOptions);
                     break;
 
@@ -68,5 +69,21 @@ public class DriverBase {
         return values;
 
     }
+
+    public void takeScreenShot(Scenario scenario) {
+        try {
+            String screenshotName = scenario.getName().replaceAll("", "_");
+            if (scenario.isFailed()) {
+                TakesScreenshot ts = (TakesScreenshot) driver;
+                byte[] screenshot = ts.getScreenshotAs(OutputType.BYTES);
+                scenario.attach(screenshot, "img/png", screenshotName);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
+
 

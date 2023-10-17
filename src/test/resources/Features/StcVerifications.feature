@@ -1,6 +1,6 @@
 Feature: Stc subscriptipn packages validaions
 
-  Background:s an un-registered user on StcTv website ,I should be able to browse site without login
+  Background:As an un-registered user on StcTv website ,I should be able to browse site without login
     Given Initializing environment and open website on "Chrome"browser
     And StcTv website is loaded correctly
 
